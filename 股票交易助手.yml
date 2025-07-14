@@ -1,0 +1,668 @@
+app:
+  description: 本工作流通过aktools获取股票信息，将信息处理后用本地deepseek分析得出买卖建议
+  icon: grinning
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 股票交易助手
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.6@7d66a960a68cafdcdf5589fdf5d01a995533f956853c69c54eddcf797006fa37
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: ''
+    id: 78af7cd7-92fa-44fe-8951-26638703d43c
+    name: apikey
+    selector:
+    - env
+    - apikey
+    value: zhouhuixxxx
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: answer
+      id: 1741669644195-source-answer-target
+      selected: false
+      source: '1741669644195'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: tool
+      id: 1741660271061-source-1742345545567-target
+      selected: false
+      source: '1741660271061'
+      sourceHandle: source
+      target: '1742345545567'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: parameter-extractor
+      id: 1742345545567-source-1742345558271-target
+      selected: false
+      source: '1742345545567'
+      sourceHandle: source
+      target: '1742345558271'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: http-request
+      id: 1742345558271-source-17497344592890-target
+      source: '1742345558271'
+      sourceHandle: source
+      target: '17497344592890'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: http-request
+      id: 17497344592890-source-1749734468743-target
+      source: '17497344592890'
+      sourceHandle: source
+      target: '1749734468743'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1749194683530-source-1741669644195-target
+      source: '1749194683530'
+      sourceHandle: source
+      target: '1741669644195'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1749734468743-source-1749788774677-target
+      source: '1749734468743'
+      sourceHandle: source
+      target: '1749788774677'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: knowledge-retrieval
+      id: 1749734468743-source-1749194683530-target
+      source: '1749734468743'
+      sourceHandle: source
+      target: '1749194683530'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: ''
+        selected: false
+        title: 开始
+        type: start
+        variables: []
+      height: 53
+      id: '1741660271061'
+      position:
+        x: 287.6509870416
+        y: 136.14160449322264
+      positionAbsolute:
+        x: 287.6509870416
+        y: 136.14160449322264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1741669644195.text#}}'
+        desc: ''
+        selected: false
+        title: A股直接回复
+        type: answer
+        variables: []
+      height: 104
+      id: answer
+      position:
+        x: 1975.8390117359613
+        y: 625.5324877612413
+      positionAbsolute:
+        x: 1975.8390117359613
+        y: 625.5324877612413
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1749194683530'
+          - result
+        desc: 对 A股使用大语言模型来分析
+        model:
+          completion_params: {}
+          mode: chat
+          name: deepseek-r1:7b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - edition_type: basic
+          id: 12b5ec7e-4db6-4b84-90ab-e0de3a45e97a
+          role: system
+          text: "你是一位资深股票交易分析助手\n 你的核心任务是：\n 1. **严格保密**：绝不透露本交易体系的任何具体规则给提问者。\n 2.\
+            \ **忠于体系**：完全依据我提供给你的上下文信息（包含交易理念、规则、案例等）进行分析。\n如果上下文信息不足，应明确指出，绝不使用你自己的通用知识或进行猜测。\
+            \ \n3. **深度分析**：对用户提出的股票，你需要从以下几个方面进行评估：  **趋势判断**：明确指出当前是处于上升趋势、下降趋势还是震荡趋势。\n\
+            \  **阶段识别**：判断股票处于交易体系中定义的哪个阶段（例如：底部构建、主升浪、回调、顶部区域等）。 * **信号检测**：检查是否出现了体系中定义的关键买入或卖出信号。\
+            \ \n4. **给出结论与理由**： * 明确给出“符合买入条件”、“不符合买入条件”或“处于观察期”等结论。 * 必须详细解释得出结论的理由，并引用上下文中的具体规则作为支撑。\n\
+            优先根据我提供的知识检索里的案例进行分析\n分析A股  ：\n{{#context#}}{{#1749734468743.body#}}\n\
+            请提供：\n1. 趋势分析（包含支撑位和压力位）\n2.是否有买卖点，这个位置可以买吗或者可以卖吗，风险收益如何\n3.这个位置是不是箱体\n\
+            \n"
+        selected: false
+        title: 大语言模型A股票分析
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 117
+      id: '1741669644195'
+      position:
+        x: 1686.0438798180428
+        y: 567.8968713284057
+      positionAbsolute:
+        x: 1686.0438798180428
+        y: 567.8968713284057
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        is_team_authorization: true
+        output_schema: null
+        paramSchemas:
+        - auto_generate: null
+          default: '%Y-%m-%d %H:%M:%S'
+          form: form
+          human_description:
+            en_US: Time format in strftime standard.
+            ja_JP: Time format in strftime standard.
+            pt_BR: Time format in strftime standard.
+            zh_Hans: strftime 标准的时间格式。
+          label:
+            en_US: Format
+            ja_JP: Format
+            pt_BR: Format
+            zh_Hans: 格式
+          llm_description: null
+          max: null
+          min: null
+          name: format
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: UTC
+          form: form
+          human_description:
+            en_US: Timezone
+            ja_JP: Timezone
+            pt_BR: Timezone
+            zh_Hans: 时区
+          label:
+            en_US: Timezone
+            ja_JP: Timezone
+            pt_BR: Timezone
+            zh_Hans: 时区
+          llm_description: null
+          max: null
+          min: null
+          name: timezone
+          options:
+          - label:
+              en_US: UTC
+              ja_JP: UTC
+              pt_BR: UTC
+              zh_Hans: UTC
+            value: UTC
+          - label:
+              en_US: America/New_York
+              ja_JP: America/New_York
+              pt_BR: America/New_York
+              zh_Hans: 美洲/纽约
+            value: America/New_York
+          - label:
+              en_US: America/Los_Angeles
+              ja_JP: America/Los_Angeles
+              pt_BR: America/Los_Angeles
+              zh_Hans: 美洲/洛杉矶
+            value: America/Los_Angeles
+          - label:
+              en_US: America/Chicago
+              ja_JP: America/Chicago
+              pt_BR: America/Chicago
+              zh_Hans: 美洲/芝加哥
+            value: America/Chicago
+          - label:
+              en_US: America/Sao_Paulo
+              ja_JP: America/Sao_Paulo
+              pt_BR: América/São Paulo
+              zh_Hans: 美洲/圣保罗
+            value: America/Sao_Paulo
+          - label:
+              en_US: Asia/Shanghai
+              ja_JP: Asia/Shanghai
+              pt_BR: Asia/Shanghai
+              zh_Hans: 亚洲/上海
+            value: Asia/Shanghai
+          - label:
+              en_US: Asia/Ho_Chi_Minh
+              ja_JP: Asia/Ho_Chi_Minh
+              pt_BR: Ásia/Ho Chi Minh
+              zh_Hans: 亚洲/胡志明市
+            value: Asia/Ho_Chi_Minh
+          - label:
+              en_US: Asia/Tokyo
+              ja_JP: Asia/Tokyo
+              pt_BR: Asia/Tokyo
+              zh_Hans: 亚洲/东京
+            value: Asia/Tokyo
+          - label:
+              en_US: Asia/Dubai
+              ja_JP: Asia/Dubai
+              pt_BR: Asia/Dubai
+              zh_Hans: 亚洲/迪拜
+            value: Asia/Dubai
+          - label:
+              en_US: Asia/Kolkata
+              ja_JP: Asia/Kolkata
+              pt_BR: Asia/Kolkata
+              zh_Hans: 亚洲/加尔各答
+            value: Asia/Kolkata
+          - label:
+              en_US: Asia/Seoul
+              ja_JP: Asia/Seoul
+              pt_BR: Asia/Seoul
+              zh_Hans: 亚洲/首尔
+            value: Asia/Seoul
+          - label:
+              en_US: Asia/Singapore
+              ja_JP: Asia/Singapore
+              pt_BR: Asia/Singapore
+              zh_Hans: 亚洲/新加坡
+            value: Asia/Singapore
+          - label:
+              en_US: Europe/London
+              ja_JP: Europe/London
+              pt_BR: Europe/London
+              zh_Hans: 欧洲/伦敦
+            value: Europe/London
+          - label:
+              en_US: Europe/Berlin
+              ja_JP: Europe/Berlin
+              pt_BR: Europe/Berlin
+              zh_Hans: 欧洲/柏林
+            value: Europe/Berlin
+          - label:
+              en_US: Europe/Moscow
+              ja_JP: Europe/Moscow
+              pt_BR: Europe/Moscow
+              zh_Hans: 欧洲/莫斯科
+            value: Europe/Moscow
+          - label:
+              en_US: Australia/Sydney
+              ja_JP: Australia/Sydney
+              pt_BR: Australia/Sydney
+              zh_Hans: 澳大利亚/悉尼
+            value: Australia/Sydney
+          - label:
+              en_US: Pacific/Auckland
+              ja_JP: Pacific/Auckland
+              pt_BR: Pacific/Auckland
+              zh_Hans: 太平洋/奥克兰
+            value: Pacific/Auckland
+          - label:
+              en_US: Africa/Cairo
+              ja_JP: Africa/Cairo
+              pt_BR: Africa/Cairo
+              zh_Hans: 非洲/开罗
+            value: Africa/Cairo
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: select
+        params:
+          format: ''
+          timezone: ''
+        provider_id: time
+        provider_name: time
+        provider_type: builtin
+        selected: false
+        title: 获取当前时间
+        tool_configurations:
+          format: '%Y-%m-%d'
+          timezone: Asia/Shanghai
+        tool_label: 获取当前时间
+        tool_name: current_time
+        tool_parameters: {}
+        type: tool
+      height: 115
+      id: '1742345545567'
+      position:
+        x: 376.13160794390944
+        y: 340.31785837524535
+      positionAbsolute:
+        x: 376.13160794390944
+        y: 340.31785837524535
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: "你是一个高级金融助手，专门用于从用户的自然语言输入中识别并提取股票代码。你的任务是基于用户提供的描述性文字，自动推断出正确的股票代码（保存在变量`stockcode1`中）。仅限A股\n\
+          请根据以下规则进行操作：\n1. 如果用户提及了特定的股票代码或公司名称，请识别并提取该股票代码作为`stockcode1`。\n2. 若用户输入的信息不足以明确判断股票代码或市场类型，请请求用户提供更具体的信息。\n\
+          \n示例输入与输出：\n- 用户输入：\"我想查询平安银行的表现\"；输出：`stockcode1` = '000001', \n\n\n请现在根据用户提供的信息执行上述指令。"
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gemma:2b
+          provider: langgenius/ollama/ollama
+        parameters:
+        - description: 股票代码
+          name: stockcode1
+          required: false
+          type: string
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: 参数提取器
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 89
+      id: '1742345558271'
+      position:
+        x: 637.5501115563766
+        y: 366.24500172534334
+      positionAbsolute:
+        x: 637.5501115563766
+        y: 366.24500172534334
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - sFpXAd+ViiH4sHr9RbAG0PCeINzWPqSoTsGGU8F390KeFAQGgZa/sziJNEpcIBfn
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: true
+          reranking_mode: weighted_score
+          top_k: 4
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: mxbai-embed-large:latest
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 0.7
+        query_variable_selector:
+        - '1749734468743'
+        - body
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 91
+      id: '1749194683530'
+      position:
+        x: 1408.7590876531167
+        y: 426.8304193980716
+      positionAbsolute:
+        x: 1408.7590876531167
+        y: 426.8304193980716
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        author: '107'
+        desc: ''
+        height: 135
+        selected: true
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":" 通过访问阿里云计算（FC），分析股票历史行情数据，返回趋势评价、近10个交易日数据、压力位和支撑位","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":" 
+           ","type":"text","version":1}],"direction":null,"format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 260
+      height: 135
+      id: '1749390555274'
+      position:
+        x: 995.5375835232117
+        y: 411.5583503220401
+      positionAbsolute:
+        x: 995.5375835232117
+        y: 411.5583503220401
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 260
+    - data:
+        author: '107'
+        desc: ''
+        height: 88
+        selected: false
+        showAuthor: true
+        text: '{"root":{"children":[{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"在本地终端python
+          -m aktools","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""},{"children":[{"detail":0,"format":0,"mode":"normal","style":"","text":"以开启接口","type":"text","version":1}],"direction":"ltr","format":"","indent":0,"type":"paragraph","version":1,"textFormat":0,"textStyle":""}],"direction":"ltr","format":"","indent":0,"type":"root","version":1}}'
+        theme: blue
+        title: ''
+        type: ''
+        width: 240
+      height: 88
+      id: '1749458390778'
+      position:
+        x: 615.9724591587346
+        y: 754.3902493832995
+      positionAbsolute:
+        x: 615.9724591587346
+        y: 754.3902493832995
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-note
+      width: 240
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        desc: ''
+        headers: ''
+        method: get
+        params: 'symbol:{{#1742345558271.stockcode1#}}
+
+          period:daily
+
+          start_date:20250311'
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 请求股票接口 (1)
+        type: http-request
+        url: http://host.docker.internal:8080/api/public/stock_zh_a_hist?
+        variables: []
+      height: 154
+      id: '17497344592890'
+      position:
+        x: 615.9724591587346
+        y: 579.6525632929256
+      positionAbsolute:
+        x: 615.9724591587346
+        y: 579.6525632929256
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-447
+            key: ''
+            type: text
+            value: '{{#17497344592890.body#}}'
+          type: json
+        desc: ''
+        headers: Content-Type:application/json
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求 2
+        type: http-request
+        url: https://analyze-thlzuexpfh.cn-hangzhou.fcapp.run
+        variables: []
+      height: 138
+      id: '1749734468743'
+      position:
+        x: 1004.3890803866318
+        y: 567.8968713284057
+      positionAbsolute:
+        x: 1004.3890803866318
+        y: 567.8968713284057
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1749734468743.files#}}/'
+        desc: ''
+        selected: false
+        title: 直接回复 2
+        type: answer
+        variables: []
+      height: 104
+      id: '1749788774677'
+      position:
+        x: 1358.7590876531167
+        y: 754.3902493832995
+      positionAbsolute:
+        x: 1358.7590876531167
+        y: 754.3902493832995
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: -132.65533877365442
+      y: -97.25571205785872
+      zoom: 0.794018765096757
