@@ -2,6 +2,7 @@
 一个股票ai助手，可以提供更加精确的技术分析以及形态分析，一个在dify和蚂蚁百宝箱（tbox）都有部署的ai智能体（chatflow））
 
 百宝箱使用地址为：https://www.tbox.cn/share/202507APJnJZ00475051?platform=WebService
+
 量化程序地址为：https://quant.10jqka.com.cn/view/article/155964#profit-chart-normal
 （量化版本为前几代未更新，有一些小错误，待优化）
 
@@ -14,9 +15,11 @@
 
 
 ## 智能体：
-<img width="2500" height="1157" alt="image" src="https://github.com/user-attachments/assets/da23c1e0-41e8-4b6b-bc47-a4fe99a0811b" />
+<img width="1214" height="964" alt="image" src="https://github.com/user-attachments/assets/86608cdf-f206-4310-a987-0c5103cb33b1" />
+<img width="1109" height="1050" alt="image" src="https://github.com/user-attachments/assets/4229e2bc-875b-42ee-9104-b3b4ee84f16a" />
+<img width="1096" height="1001" alt="image" src="https://github.com/user-attachments/assets/a64e83c3-cc18-4bb0-9ae9-3dae0d9710fb" />
 
-<img width="1287" height="1063" alt="image" src="https://github.com/user-attachments/assets/5dab33c7-ba86-40db-959a-0e24a84446ca" />
+
 
 
 
