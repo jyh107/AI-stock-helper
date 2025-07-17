@@ -7,6 +7,8 @@
 * **百宝箱使用地址**：[https://www.tbox.cn/share/202507APJnJZ00475051?platform=WebService](https://www.tbox.cn/share/202507APJnJZ00475051?platform=WebService)
 * **量化程序地址**：[https://quant.10jqka.com.cn/view/article/155964#profit-chart-normal](https://quant.10jqka.com.cn/view/article/155964#profit-chart-normal)
     * （注：量化版本为前几代未更新，有一些小错误，待优化）
+    * 不知道啥原因，帖子被删了（25.7.17）
+
 
 ## 应用介绍
 
@@ -46,7 +48,8 @@
 * 量化程序在supermind使用python编写，需要配合supermind平台的环境和api文档。
 * 量化程序为1.0版本，适合短期赚钱效应较好的时间段（盈利会更多）
 * 基准收益采用中证300指数（399300.SZ）
-<img width="2482" height="1103" alt="image" src="https://github.com/user-attachments/assets/6d75b985-2c42-473c-8274-85d4f2526af6" />
+<img width="2533" height="1162" alt="image" src="https://github.com/user-attachments/assets/4c229662-ee19-4051-8f8f-35a1da6df9db" />
+
 
 ### 后续计划
 计划在百宝箱中接入同花顺supermind的量化程序策略每日返回的持仓结果。
