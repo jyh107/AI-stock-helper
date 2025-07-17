@@ -7,7 +7,8 @@
 * **百宝箱使用地址**：[https://www.tbox.cn/share/202507APJnJZ00475051?platform=WebService](https://www.tbox.cn/share/202507APJnJZ00475051?platform=WebService)
 * **量化程序地址**：[https://quant.10jqka.com.cn/view/article/155964#profit-chart-normal](https://quant.10jqka.com.cn/view/article/155964#profit-chart-normal)
     * （注：量化版本为前几代未更新，有一些小错误，待优化）
-    * 不知道啥原因，帖子被删了（25.7.17）
+    * 不知道啥原因，帖子被删了（25.7.17）<img width="978" height="152" alt="image" src="https://github.com/user-attachments/assets/1656491b-d701-4f49-bdcc-17e800c70a07" />
+
 
 
 ## 应用介绍
